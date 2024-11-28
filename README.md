@@ -1,5 +1,5 @@
 # React Native + Material Symbols
-This library provides a set of React Native components that render Material Symbols icons as SVGs.
+This library provides a set of React Native components that render Material Symbols icons as SVGs using [react-native-svg](https://github.com/software-mansion/react-native-svg).
 
 ## Installation
 ```bash
