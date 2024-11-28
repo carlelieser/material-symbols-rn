@@ -3,3 +3,4 @@ src
 icons
 dist
 .idea
+package-lock.json
