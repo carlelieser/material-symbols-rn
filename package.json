@@ -1,6 +1,6 @@
 {
 	"name": "material-symbols-rn",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "React Native SVG components for Material Symbols.",
 	"main": "dist/index.js",
 	"scripts": {
@@ -27,7 +27,7 @@
 	"license": "MIT",
 	"dependencies": {
 		"react": "^18.2.0",
-		"react-native-svg": "^15.9.0"
+		"react-native-svg": "15.8.0"
 	},
 	"devDependencies": {
 		"@svgr/core": "^8.1.0",
