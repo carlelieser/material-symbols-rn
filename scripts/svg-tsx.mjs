@@ -5,8 +5,8 @@
 import path from "path";
 import { fileURLToPath } from "url";
 import fg from "fast-glob";
-import * as fs from "fs-extra";
-import PQueue from "p-queue"
+import fs from "fs-extra";
+import PQueue from "p-queue";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import { transform } from "@svgr/core";
@@ -47,8 +47,12 @@ const toTSX = async (filePath, name = path.basename(filePath, `.${ext}`)) => {
 		data,
 		{
 			native: true,
-			plugins: ["@svgr/plugin-svgo", "@svgr/plugin-jsx", "@svgr/plugin-prettier"],
 			icon: true,
+			typescript: true,
+			plugins: ["@svgr/plugin-svgo", "@svgr/plugin-jsx", "@svgr/plugin-prettier"],
+			svgoConfig: {
+				plugins: ["removeXMLNS"],
+			},
 		},
 		{ componentName: name }
 	);
