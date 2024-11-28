@@ -5,11 +5,11 @@
 		"jsx": "react-native",
 		"lib": ["DOM", "ESNext"],
 		"moduleResolution": "node",
-		"noEmit": true,
 		"resolveJsonModule": true,
 		"skipLibCheck": true,
 		"target": "ESNext",
-		"declaration": true
+		"declaration": true,
+		"outDir": "./dist",
 	},
 	"include": [
 		"src/*"
