@@ -29,7 +29,7 @@ const destPath = path.join(root, "src");
 const queue = new PQueue({ concurrency: 8 });
 const defaultStyle = argv.style ?? "outlinedfilled";
 
-const getIconFiles = () => fg(`icons/*.${ext}`);
+const getIconFiles = () => fg(`icons/**/*.${ext}`);
 
 const createComponentWithDefaultStyle = async (filePath, name) => {
 	const normalizedDefaultStyle = defaultStyle.toLowerCase();
@@ -49,14 +49,17 @@ const toTSX = async (filePath, name = path.basename(filePath, `.${ext}`)) => {
 			native: true,
 			icon: true,
 			typescript: true,
+			generateIndex: true,
 			plugins: ["@svgr/plugin-svgo", "@svgr/plugin-jsx", "@svgr/plugin-prettier"],
 			svgoConfig: {
 				plugins: ["removeXMLNS"],
 			},
 		},
 		{ componentName: name }
+
 	);
-	const outPath = path.join(destPath, name + ".tsx");
+	const style = path.dirname(filePath).split("/").pop();
+	const outPath = path.join(destPath, style, name + ".tsx");
 
 	await fs.outputFile(outPath, content, { encoding: "utf-8" });
 };
@@ -67,12 +70,14 @@ const generateComponents = async () => {
 };
 
 const generateIndex = async () => {
-	const files = await fg("src/*.tsx");
-	const names = files.map(filePath => path.basename(filePath, ".tsx"));
-	const content = names.map(name => `export { default as ${name} } from "./${name}";`).join("\n");
-	const outPath = path.join(destPath, "index.ts");
+	const files = await fg(`src/**/*.tsx`);
+	const styles = files.map(filePath => path.dirname(filePath).split("/").pop()).filter((style, i, arr) => arr.indexOf(style) === i);
+	const names = files.map(filePath => path.basename(filePath, ".tsx")).filter((name, i, arr) => arr.indexOf(name) === i);
+	const content = names.map((name, i) => `export { default as ${name} } from "./${name}";`).join("\n");
 
-	await fs.outputFile(outPath, content, { encoding: "utf-8" });
+	for (const style of styles) {
+		await fs.outputFile(path.join(destPath, style, "index.ts"), content, { encoding: "utf-8" });	
+	}
 };
 
 const clean = () => fs.emptyDir(destPath);

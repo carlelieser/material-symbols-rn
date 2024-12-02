@@ -30,7 +30,7 @@ const argv = yargs(hideBin(process.argv))
 		type: "string",
 	})
 	.option("sub-dir", {
-		alias: "s",
+		alias: "sd",
 		describe: 'The sub-directory within the repo where icons should be grabbed from. Default is "svg/400"',
 		type: "string",
 	}).argv;
@@ -76,8 +76,7 @@ const getIconName = (name, style) => {
 const prepIconPath = iconPath => {
 	const filename = path.basename(iconPath, `.${ext}`);
 	const style = iconPath.split("/")[3];
-	const iconName = getIconName(filename, style);
-	return path.join(outDir, `${iconName}.${ext}`);
+	return path.join(outDir, style, `${getIconName(filename, "")}.${ext}`);
 };
 
 const normalizePath = path => `/${path}/`.replaceAll(/\/+/g, "/");
@@ -91,6 +90,7 @@ const validateEntry = entry => {
 
 	if (isFile && isInSubDir && hasExtension) {
 		const newIconPath = prepIconPath(entry.path);
+		fs.ensureDirSync(path.dirname(newIconPath));
 		entry.pipe(fs.createWriteStream(newIconPath));
 	} else {
 		entry.autodrain();
