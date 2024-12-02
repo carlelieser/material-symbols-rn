@@ -1,10 +1,13 @@
 {
 	"name": "material-symbols-rn",
-	"version": "2.0.3",
+	"version": "2.0.5",
 	"description": "React Native SVG components for Material Symbols.",
-	"main": "dist/index.js",
 	"files": [
-		"dist"
+		"outlined",
+		"rounded",
+		"sharp",
+		"Icon.d.ts",
+		"Icon.js"
 	],
 	"scripts": {
 		"clean": "rimraf ./dist",
@@ -12,9 +15,12 @@
 		"download": "node scripts/download.mjs",
 		"svg-tsx": "node scripts/svg-tsx.mjs",
 		"copy-components": "cpy ./components/*.tsx ./src",
+		"copy-dist": "cpy ./dist/* ./",
 		"build": "cross-env NODE_OPTIONS='--max-old-space-size=8192' tsc",
 		"dist": "npm run clean && npm run copy-components && npm run build",
-		"update": "npm run download && npm run svg-tsx && npm run dist"
+		"update": "npm run download && npm run svg-tsx && npm run dist",
+		"prepublishOnly": "npm run update && npm run copy-dist && npm run clean",
+		"postpublish": "git clean -fd"
 	},
 	"keywords": [
 		"material-symbols",
