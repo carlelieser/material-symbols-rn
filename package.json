@@ -19,7 +19,7 @@
 		"build": "cross-env NODE_OPTIONS='--max-old-space-size=8192' tsc",
 		"dist": "npm run clean && npm run copy-components && npm run build",
 		"update": "npm run download && npm run svg-tsx && npm run dist",
-		"prepublishOnly": "npm run update && npm run copy-dist && npm run clean",
+		"prepublishOnly": "npm run update && npm run copy-dist",
 		"postpublish": "git clean -fd"
 	},
 	"keywords": [
