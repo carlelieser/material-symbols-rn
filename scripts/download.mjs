@@ -43,7 +43,7 @@ const outDir = argv.output
 	? path.resolve(process.cwd() ?? __dirname + "/..", argv.output)
 	: path.join(__dirname, "..", "icons");
 const ext = argv.extension ?? "svg";
-const subDir = argv["sub-dir"] ?? "svg/400";
+const subDir = argv["sub-dir"] ?? "svg/600";
 
 const releasesURL = `https://api.github.com/repos/${repo}/releases/latest`;
 const zipFileName = "download.zip";

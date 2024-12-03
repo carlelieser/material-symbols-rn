@@ -1,6 +1,6 @@
 {
 	"name": "material-symbols-rn",
-	"version": "2.0.7",
+	"version": "2.0.9",
 	"description": "React Native SVG components for Material Symbols.",
 	"files": [
 		"outlined",
